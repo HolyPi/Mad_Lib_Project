@@ -1,27 +1,29 @@
-# Initializing my unfilled story as a string
-unfilled_Story_String = "‘%v to?' said %n. 'Of course you've got %n! But not because of the %a %n! Because you, yourself, will %v %av until you've %v! We both know %a %n! %v, please, just for a %n, that you had %v %av that %n! How would you %v about %n now? %v!'"
-
-# Initializing my unfilled_Story_String split into a list
+unfilled_Story_String = "‘%ingv people?' said %na. 'Of course you find this interisting! But not because of the %a %n! Because you, yourself, will be %ingv %av until you've burned out! We both know %a %pn! %v, please, just for once! Could you %v for me now?'"
+part_Of_Speech_Dictionary = {"%ingv": "a verb ending with -ing","%ptv":"a past tense verb", "%v": "a verb",
+                             "%pn":"a plural noun", "%na":"a name", "%n": "a singular noun", "%av": "an adverb", 
+                             "%a": "an adjective", }
 unfilled_Story_List = unfilled_Story_String.split(' ')
-
-# Initializing my filledStoryList as an empty list to fill in afterwards
 filledStoryList = []
 
-# Initializing specificPartsOfSpeechReference containing 
-# the specific parts of speech that correspong to my story
-specific_Parts_Of_Speech_Dictionary = {"%v": "verb", "%n": "noun", "%a": "adjective", "%av": "adverb"}
+def get_user_input(part_Of_Speech):
+    return input("Enter " + part_Of_Speech_Dictionary[part_Of_Speech] + " :")
 
-def fills_story_list_given_input(segment, specific_Part_Of_Speech):
-    initial_index_of_specific_part_of_speech = segment.find(specific_Part_Of_Speech)
-    final_index_of_specific_part_of_speech = initial_index_of_specific_part_of_speech + len(specific_Part_Of_Speech)
-    users_Substitution = input("Enter a " + specific_Parts_Of_Speech_Dictionary[specific_Part_Of_Speech])
-    user_modified_segment = segment[0:initial_index_of_specific_part_of_speech] + users_Substitution + segment[final_index_of_specific_part_of_speech: len(segment)]
-    filledStoryList.append(user_modified_segment)
-    
+def get_segment_prefix(segment, part_of_speech):
+    return segment[0:segment.find(part_of_speech)]
+
+def get_segment_suffix(segment, part_of_speech):
+     return segment[segment.find(part_of_speech) + len(part_of_speech): len(segment)]
+
+def append_user_modified_segment(segment, part_Of_Speech):
+    segment_preffix = get_segment_prefix(segment, part_Of_Speech)
+    user_input = get_user_input(part_Of_Speech)
+    segment_suffix =  get_segment_suffix(segment, part_Of_Speech)
+    filledStoryList.append(segment_preffix + user_input + segment_suffix)
+
 def contains_Specific_Parts_Of_Speech(segment):
-    for specific_Part_Of_Speech in specific_Parts_Of_Speech_Dictionary:
+    for specific_Part_Of_Speech in part_Of_Speech_Dictionary:
         if specific_Part_Of_Speech in segment:
-            fills_story_list_given_input(segment, specific_Part_Of_Speech)
+            append_user_modified_segment(segment, specific_Part_Of_Speech)
             return
     filledStoryList.append(segment)
 
