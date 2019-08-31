@@ -1,8 +1,9 @@
-unfilled_Story_String = "‘%ingv people?' said %na. 'Of course you find this interisting! But not because of the %a %n! Because you, yourself, will be %ingv %av until you've burned out! We both know %a %pn! %v, please, just for once! Could you %v for me now?'"
-part_Of_Speech_Dictionary = {"%ingv": "a verb ending with -ing","%ptv":"a past tense verb", "%v": "a verb",
-                             "%pn":"a plural noun", "%na":"a name", "%n": "a singular noun", "%av": "an adverb", 
-                             "%a": "an adjective", }
+import sys
+from termcolor import colored, cprint
+unfilled_Story_String = "‘%ingv people?' said %na. 'Of course you find this interesting! But not because of the %a %n! Because you, yourself, will be %ingv %av until you've burned out! We both know who you really are! For one %Pv, please, just for once! You've %pv Could you %Pv for me instead? Then I'll give you a %n."
 unfilled_Story_List = unfilled_Story_String.split(' ')
+part_Of_Speech_Dictionary = {"%ingv": "a verb ending with -ing","%pv":"a past tense verb", "%Pv": "a present verb",
+                            "%na":"a name", "%n": "a single noun", "%av": "an adverb", "%a": "an adjective"}
 filledStoryList = []
 
 def get_user_input(part_Of_Speech):
@@ -29,11 +30,6 @@ def contains_Specific_Parts_Of_Speech(segment):
 
 for segment in unfilled_Story_List:
     contains_Specific_Parts_Of_Speech(segment)
-
+print()
 for story_segment in filledStoryList:
-    print(story_segment)
-
-
-
-
-
+    cprint(story_segment, "red", end = " ")
