@@ -13,3 +13,6 @@ highlight the different parts of speech/word types used. Then the story
 template written by Christopher Francisco, filled with your input will be
 displayed!
 
+install termcolor to print color in the terminal
+type the following in the terminal
+>> pip install termcolor
